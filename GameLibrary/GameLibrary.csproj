@@ -41,9 +41,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="IBase.cs" />
+    <Compile Include="daoImpl\AbstractDAO.cs" />
+    <Compile Include="daoImpl\AccumulatorDAO.cs" />
+    <Compile Include="daoImpl\CarDAO.cs" />
+    <Compile Include="daoImpl\DAOFactory.cs" />
+    <Compile Include="daoImpl\DisksDAO.cs" />
+    <Compile Include="daoImpl\EngineDAO.cs" />
+    <Compile Include="dao\IAbstractDAO.cs" />
+    <Compile Include="dao\IAccumulatorDAO.cs" />
+    <Compile Include="dao\ICarDAO.cs" />
+    <Compile Include="dao\IDAOFactory.cs" />
+    <Compile Include="dao\IDisksDAO.cs" />
+    <Compile Include="dao\IEngineDAO.cs" />
+    <Compile Include="Model\Accumulator.cs" />
+    <Compile Include="Model\Car.cs" />
+    <Compile Include="daoImpl\Database.cs" />
+    <Compile Include="Model\Disks.cs" />
+    <Compile Include="Model\Engine.cs" />
+    <Compile Include="Interface\IBase.cs" />
+    <Compile Include="Interface\ICar.cs" />
+    <Compile Include="Interface\IDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

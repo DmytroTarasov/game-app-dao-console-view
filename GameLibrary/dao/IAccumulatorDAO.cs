@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameLibrary
+namespace GameLibrary.dao
 {
-    public class Class1
+    interface IAccumulatorDAO : IAbstractDAO<Accumulator>
     {
     }
 }
