@@ -9,6 +9,5 @@ namespace GameLibrary
     interface IBase
     {
         Guid Id { get; set; }
-        void GenerateId();
     }
 }

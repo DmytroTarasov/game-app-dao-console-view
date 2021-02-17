@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GameLibrary
 {
-    interface IAbstractDAO<T>
+    interface IAbstractDAO<T> 
     {
         T Get(Guid id);
         void Insert(T entity);
         void Update(Guid id, T entity);
         void Delete(Guid id);
-        List<T> findAll();
+        List<T> FindAll();
     }
 }

@@ -8,9 +8,7 @@ namespace GameLibrary.dao
 {
     interface IDAOFactory
     {
-        IAccumulatorDAO GetAccumulatorDAO();
-        IDisksDAO GetDisksDAO();
-        IEngineDAO GetEngineDAO();
+        IDetailDAO GetDetailDAO();
         ICarDAO GetCarDao();
     }
 }

@@ -11,5 +11,7 @@ namespace GameLibrary
         double StabilityInOperation { get; set; }
         double PurchaseCost { get; set; }
         double RepairCost { get; set; }
+        bool IsBroken { get; set; }
+        bool CanBeRepaired { get; set; }
     }
 }

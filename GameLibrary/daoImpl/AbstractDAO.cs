@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameLibrary.Model;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GameLibrary.daoImpl
 {
-    class AbstractDAO<T> : IAbstractDAO<T> where T : IBase
+    class AbstractDAO<T> : IAbstractDAO<T> 
     {
         protected IDictionary<Guid, T> entities;
         protected Database database;
@@ -23,7 +24,7 @@ namespace GameLibrary.daoImpl
 
         public void Insert(T entity) // ? 
         {
-            entities.Add(entity.Id, entity);
+            entities.Add(((IBase)entity).Id, entity);
         }
 
         public void Update(Guid id, T entity) // Correct
@@ -46,7 +47,7 @@ namespace GameLibrary.daoImpl
                 }
             }
         }
-        public List<T> findAll() // Correct
+        public List<T> FindAll() // Correct
         {
             return entities.Values.ToList();
         }

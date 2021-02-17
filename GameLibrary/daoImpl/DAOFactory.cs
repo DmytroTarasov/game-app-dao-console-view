@@ -10,39 +10,23 @@ namespace GameLibrary.daoImpl
     class DAOFactory : IDAOFactory
     {
         protected Database Database;
-        protected IEngineDAO EngineDAO;
-        protected IAccumulatorDAO AccumulatorDAO;
-        protected IDisksDAO DisksDAO;
+        protected IDetailDAO DetailDAO;
         protected ICarDAO CarDAO;
-
         public DAOFactory(Database database)
         {
             Database = database;
-
-            EngineDAO = new EngineDAO(database);
-            AccumulatorDAO = new AccumulatorDAO(database);
-            DisksDAO = new DisksDAO(database);
+            DetailDAO = new DetailDAO(database);
             CarDAO = new CarDAO(database);
         }
 
-        public IAccumulatorDAO GetAccumulatorDAO()
+        public IDetailDAO GetDetailDAO()
         {
-            return AccumulatorDAO;
+            return DetailDAO;
         }
 
         public ICarDAO GetCarDao()
         {
             return CarDAO;
-        }
-
-        public IDisksDAO GetDisksDAO()
-        {
-            return DisksDAO;
-        }
-
-        public IEngineDAO GetEngineDAO()
-        {
-            return EngineDAO;
         }
     }
 }

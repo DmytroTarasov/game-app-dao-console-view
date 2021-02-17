@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameLibrary.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,24 +7,15 @@ using System.Threading.Tasks;
 
 namespace GameLibrary
 {
-    class Disks : IBase, IDetail
+    class Disks : Detail
     {
         public int Diameter { get; set; }
-        public double StabilityInOperation { get; set; }
-        public double PurchaseCost { get; set; }
-        public double RepairCost { get; set; }
-        public Guid Id { get; set; }
-        public Disks(int diameter, double stabilityInOperation, double purchaseCost, double repairCost)
+        public Disks(int diameter, double stabilityInOperation, double purchaseCost, double repairCost) :
+            base(stabilityInOperation, purchaseCost, repairCost)
         {
-            GenerateId();
             Diameter = diameter;
-            StabilityInOperation = stabilityInOperation;
-            PurchaseCost = purchaseCost;
-            RepairCost = repairCost;
-        }
-        public void GenerateId() // под вопросом
-        {
-            Id = Guid.NewGuid();
+            IsBroken = false;
+            CanBeRepaired = true;
         }
     }
 }

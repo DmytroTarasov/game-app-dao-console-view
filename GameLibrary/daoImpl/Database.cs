@@ -1,4 +1,5 @@
 ﻿using GameLibrary.daoImpl;
+using GameLibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,12 @@ namespace GameLibrary
     {
         internal IDictionary<Guid, Car> Cars;
 
-        internal IDictionary<Guid, Engine> Engines;
-
-        internal IDictionary<Guid, Accumulator> Accumulators;
-
-        internal IDictionary<Guid, Disks> Disks;
+        internal IDictionary<Guid, Detail> Details;
         public Database()
         {
             Cars = new Dictionary<Guid, Car>();
-            Engines = new Dictionary<Guid, Engine>();
-            Accumulators = new Dictionary<Guid, Accumulator>();
-            Disks = new Dictionary<Guid, Disks>();
+            Details = new Dictionary<Guid, Detail>();
         }
-
         DAOFactory GetDAOFactory()
         {
             return new DAOFactory(this);
