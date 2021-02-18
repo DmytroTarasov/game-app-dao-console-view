@@ -12,9 +12,8 @@ namespace GameLibrary.Services
         List<Car> GetAllCars();
         Car GetCarById(Guid id);
         void CreateCar(int speed, Engine engine, Accumulator accumulator, Disks disks, double money);
-        void StartMove(Car car);
-        void StopMove(Car car, Stopwatch stopwatch);
-        void increaseDistance(Car car, Stopwatch stopwatch);
-
+        void Move(Car car, double money);
+        double IncreaseMileage(Car car, Stopwatch stopwatch);
+        void RiseMoney(Car car, double distance, double money);
     }
 }

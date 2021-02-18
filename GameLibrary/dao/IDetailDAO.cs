@@ -9,7 +9,8 @@ namespace GameLibrary.dao
 {
     interface IDetailDAO : IAbstractDAO<Detail>
     {
-        bool CheckDetail(Detail detail);
+        bool CheckDetail(Detail detail, double money);
         double RepairDetail(Detail detail, double money);
+        void DecrStabilityAfterRepair(Detail detail);
     }
 }

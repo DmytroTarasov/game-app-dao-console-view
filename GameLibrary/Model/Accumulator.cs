@@ -13,7 +13,6 @@ namespace GameLibrary
         public Accumulator(int capacity, double stabilityInOperation, double purchaseCost, double repairCost) :
             base(stabilityInOperation, purchaseCost, repairCost)
         {
-            GenerateId();
             Capacity = capacity;
             IsBroken = false;
             CanBeRepaired = true; 

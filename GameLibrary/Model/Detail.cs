@@ -13,6 +13,7 @@ namespace GameLibrary.Model
         public double RepairCost { get; set; }
         public bool IsBroken { get; set; }
         public bool CanBeRepaired { get; set; }
+        public double CoeffDecrStability { get; set; }
         public Guid Id { get; set; }
         public Detail(double stabilityInOperation, double purchaseCost, double repairCost)
         {

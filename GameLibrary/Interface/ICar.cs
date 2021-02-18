@@ -9,6 +9,7 @@ namespace GameLibrary
     interface ICar
     {
         int Speed { get; set; }
+        double CoeffEarnMoneyPerMetr { get; set; }
         Engine Engine { get; set; }
         Accumulator Accumulator { get; set; }
         Disks Disks { get; set; }

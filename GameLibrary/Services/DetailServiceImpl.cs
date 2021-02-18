@@ -1,4 +1,5 @@
 ﻿using GameLibrary.daoImpl;
+using GameLibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,30 +16,14 @@ namespace GameLibrary.Services
         {
             DaoFactory = daoFactory;
         }
-
-        public bool CheckDetail(IDetail detail)
+        public bool CheckDetail(Detail detail, double money)
         {
-            
+            return DaoFactory.GetDetailDAO().CheckDetail(detail, money);
         }
 
-        public double RepairDetail(IDetail detail, double money)
+        public double RepairDetail(Detail detail, double money)
         {
-            throw new NotImplementedException();
+            return DaoFactory.GetDetailDAO().RepairDetail(detail, money);
         }
-
-        //public void RepairDetail(List<IDetail> details, double money)
-        //{
-        //    details.ForEach(detail => money -= detail.)
-        //}
-        //public void CheckDetail(IDetail detail)
-        //{
-        //    Random x = new Random();
-        //    double r = Convert.ToDouble(x.Next(1));
-
-        //    if (r > detail.StabilityInOperation)
-        //    {
-        //        detail.IsBroken = true;
-        //    }
-        //}
     }
 }

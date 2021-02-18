@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameLibrary;
+using System;
 
 namespace GameApplication
 {
@@ -7,6 +8,7 @@ namespace GameApplication
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            //Database database = new Database();
         }
     }
 }

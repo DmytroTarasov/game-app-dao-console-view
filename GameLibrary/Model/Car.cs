@@ -16,15 +16,13 @@ namespace GameLibrary
         public Engine Engine { get; set; }
         public Accumulator Accumulator { get; set; }
         public Disks Disks { get; set; }
-        public void GenerateId() // под вопросом
+        public double CoeffEarnMoneyPerMetr { get; set; }
+        public Car(int speed, Engine engine, Accumulator accumulator, Disks disks, double coefficientEarnMoneyPerMetr)
         {
             Id = Guid.NewGuid();
-        }
-        public Car(int speed, Engine engine, Accumulator accumulator, Disks disks)
-        {
-            GenerateId();
             Speed = speed;
             Mileage = 0;
+            CoeffEarnMoneyPerMetr = coefficientEarnMoneyPerMetr;
             Engine = engine;
             Accumulator = accumulator;
             Disks = disks;

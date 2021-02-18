@@ -13,5 +13,6 @@ namespace GameLibrary
         double RepairCost { get; set; }
         bool IsBroken { get; set; }
         bool CanBeRepaired { get; set; }
+        double CoeffDecrStability { get; set; }
     }
 }

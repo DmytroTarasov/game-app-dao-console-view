@@ -28,48 +28,35 @@ namespace GameLibrary.Services
         {
             return DaoFactory.GetCarDao().Get(id);
         }
-        public void StartMove(Car car)
+        public void CreateCar(int speed, Engine engine, Accumulator accumulator, Disks disks, double money)
+        {
+            DaoFactory.GetCarDao().CreateCar(speed, engine, accumulator, disks, money);
+        }
+        public void Move(Car car, double money)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            if (stopwatch.ElapsedMilliseconds / 1000 == 2)
+            if (stopwatch.ElapsedMilliseconds / 1000 == 1)
             {
                 stopwatch.Stop();
-                DetailServiceImpl.CheckDetail(car.Accumulator);
-                DetailServiceImpl.CheckDetail(car.Disks);
-                DetailServiceImpl.CheckDetail(car.Engine);
-                if (car.Accumulator.IsBroken || car.Disks.IsBroken || car.Engine.IsBroken)
-                {
-                    StopMove(car, stopwatch); // остановиться
-                    // RepairDetail() need repair
+                double distance = IncreaseMileage(car, stopwatch);
+                RiseMoney(car, distance, money);
+                if (!DetailServiceImpl.CheckDetail(car.Accumulator, money) && !DetailServiceImpl.CheckDetail(car.Engine, money)
+                    && !DetailServiceImpl.CheckDetail(car.Disks, money)) 
+                { 
+                    Move(car, money);
                 }
-                IncreaseMileage(car, stopwatch);
-                StartMove(car);
             }
         }
-
-        public void StartMove(Car car)
+        public double IncreaseMileage(Car car, Stopwatch stopwatch)
         {
-  
+            double distance = car.Speed * 1000 / (60 * 60 * 1000) * stopwatch.ElapsedMilliseconds; // distance that was drived 
+            car.Mileage += distance;
+            return distance;
         }
-        public void StopMove(Car car, Stopwatch stopwatch)
+        public void RiseMoney(Car car, double distance, double money)
         {
-            stopwatch.Stop();
-            IncreaseMileage(car, stopwatch);
+            money += distance * car.CoeffEarnMoneyPerMetr;
         }
-        public void IncreaseMileage(Car car, Stopwatch stopwatch)
-        {
-            car.Mileage += (car.Speed * 1000 / (60 * 60 * 1000)) * stopwatch.ElapsedMilliseconds; // distance that was drived 
-        }
-        //public bool CheckDetails(Car car)
-        //{
-        //    double r = Convert.ToDouble(new Random().Next(1));
-        //    if (r > car.Accumulator.StabilityInOperation ||  r > car.Engine.StabilityInOperation || 
-        //        r > car.Disks.StabilityInOperation)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
     }
 }
