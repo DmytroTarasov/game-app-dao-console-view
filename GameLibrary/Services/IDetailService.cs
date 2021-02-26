@@ -1,15 +1,18 @@
 ﻿using GameLibrary.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary.Services
 {
     interface IDetailService
     {
-       bool CheckDetail(Detail detail, double money);
-       double RepairDetail(Detail detail, double money);
+        List<Detail> GetAllDetails();
+        List<Detail> GetAllCarDetails(Car car);
+        Detail GetDetailById(Guid id);
+        List<Detail> FindDetailsByType(Type detailType);
+        double CheckDetail(Detail detail, double money);
+        double RepairDetail(Detail detail, double money);
+        void DecrStabilityAfterRepair(Detail detail);
+        double ReplaceDetail(Car car, Detail detail, Detail newdetail, double money);
     }
 }

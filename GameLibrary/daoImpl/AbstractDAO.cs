@@ -1,55 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameLibrary.Model;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary.daoImpl
 {
-    class AbstractDAO<T> : IAbstractDAO<T> 
+    public class AbstractDAO<T> : IAbstractDAO<T> 
     {
-        protected IDictionary<Guid, T> entities;
-        protected Database database;
+        protected IDictionary<Guid, T> Entities;
+        protected Database Database;
 
         public AbstractDAO(IDictionary<Guid, T> entities, Database database)
         {
-            this.entities = entities;
-            this.database = database;
+            Entities = entities;
+            Database = database;
         }
-        public T Get(Guid id) // Correct 
+        public T Get(Guid id) 
         {
-            return entities.Where(entity => entity.Key == id).FirstOrDefault().Value;
-        }
-
-        public void Insert(T entity) // ? 
-        {
-            entities.Add(((IBase)entity).Id, entity);
+            return Entities.Where(entity => entity.Key == id).FirstOrDefault().Value;
         }
 
-        public void Update(Guid id, T entity) // Correct
+        public void Insert(T entity) 
         {
-            foreach (Guid Id in entities.Keys)
+            Entities.Add(((IBase)entity).Id, entity);
+        }
+
+        public void Update(Guid id, T entity)
+        {
+            foreach (Guid Id in Entities.Keys)
             {
                 if (Id == id)
                 {
-                    entities[Id] = entity;
+                    Entities[Id] = entity;
                 }
             }
         }
-        public void Delete(Guid id) // Correct
+        public void Delete(Guid id) 
         {
-            foreach (Guid Id in entities.Keys)
+            foreach (Guid Id in Entities.Keys)
             {
                 if (Id == id)
                 {
-                    entities.Remove(Id);
+                    Entities.Remove(Id);
                 }
             }
         }
-        public List<T> FindAll() // Correct
+        public List<T> FindAll() 
         {
-            return entities.Values.ToList();
+            return Entities.Values.ToList();
         }
     }
 }

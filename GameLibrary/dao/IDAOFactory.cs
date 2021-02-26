@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameLibrary.daoImpl;
 
 namespace GameLibrary.dao
 {
-    interface IDAOFactory
+    public interface IDAOFactory
     {
-        IDetailDAO GetDetailDAO();
-        ICarDAO GetCarDao();
+        DetailDAO GetDetailDao();
+        CarDAO GetCarDao();
     }
 }

@@ -1,21 +1,21 @@
 ﻿using GameLibrary.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary
 {
-    class Engine : Detail
+    public class Engine : Detail
     {
         public string Type { get; set; }
-        public Engine(string type, double stabilityInOperation, double purchaseCost, double repairCost) :
-            base(stabilityInOperation, purchaseCost, repairCost) 
+        public Engine(string type, double stability, double purchaseCost, double repairCost, double coeffDecrStability) :
+            base(stability, purchaseCost, repairCost, coeffDecrStability) 
         {
             Type = type;
             IsBroken = false;
             CanBeRepaired = true;
+        }
+        public override string ToString()
+        {
+            return "Type: " + Type + ", Stability: " + Stability + ", PurchaseCost: " + PurchaseCost +
+                ", RepairCost: " + RepairCost;
         }
     }
 }

@@ -1,30 +1,23 @@
 ﻿using GameLibrary.dao;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary.daoImpl
 {
-    class DAOFactory : IDAOFactory
+    public class DAOFactory : IDAOFactory
     {
         protected Database Database;
-        protected IDetailDAO DetailDAO;
-        protected ICarDAO CarDAO;
+        protected DetailDAO DetailDAO { get; }
+        protected CarDAO CarDAO { get; }
         public DAOFactory(Database database)
         {
             Database = database;
             DetailDAO = new DetailDAO(database);
             CarDAO = new CarDAO(database);
         }
-
-        public IDetailDAO GetDetailDAO()
+        public DetailDAO GetDetailDao()
         {
             return DetailDAO;
         }
-
-        public ICarDAO GetCarDao()
+        public CarDAO GetCarDao()
         {
             return CarDAO;
         }

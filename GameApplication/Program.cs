@@ -1,4 +1,6 @@
 ﻿using GameLibrary;
+using GameLibrary.daoImpl;
+using GameLibrary.Interface;
 using System;
 
 namespace GameApplication
@@ -7,8 +9,13 @@ namespace GameApplication
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            //Database database = new Database();
+            Database database = new Database();
+            DAOFactory DaoFactory = database.GetDAOFactory();
+            TestData testData = new TestData();
+            testData.GenerateTo(database);
+
+            ConsoleView cView = new ConsoleView(DaoFactory);
+            cView.Begin();
         }
     }
 }

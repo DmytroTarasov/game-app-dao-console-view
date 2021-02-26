@@ -3,12 +3,10 @@ using GameLibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary.Services
 {
-    class DetailServiceImpl : IDetailService
+    public class DetailServiceImpl : IDetailService
     {
         DAOFactory DaoFactory;
 
@@ -16,14 +14,38 @@ namespace GameLibrary.Services
         {
             DaoFactory = daoFactory;
         }
-        public bool CheckDetail(Detail detail, double money)
+        public double CheckDetail(Detail detail, double money)
         {
-            return DaoFactory.GetDetailDAO().CheckDetail(detail, money);
+            return DaoFactory.GetDetailDao().CheckDetail(detail, money);
         }
-
         public double RepairDetail(Detail detail, double money)
         {
-            return DaoFactory.GetDetailDAO().RepairDetail(detail, money);
+            return DaoFactory.GetDetailDao().RepairDetail(detail, money);
+        }
+        public void DecrStabilityAfterRepair(Detail detail)
+        {
+            DaoFactory.GetDetailDao().DecrStabilityAfterRepair(detail);
+        }
+        public double ReplaceDetail(Car car, Detail detail, Detail newdetail, double money)
+        {
+            return DaoFactory.GetDetailDao().ReplaceDetail(car, detail, newdetail, money);
+        }
+        public List<Detail> GetAllDetails()
+        {
+            return DaoFactory.GetDetailDao().FindAll();
+        }
+        public Detail GetDetailById(Guid id)
+        {
+            return DaoFactory.GetDetailDao().Get(id);
+        }
+        public List<Detail> GetAllCarDetails(Car car)
+        {
+            return DaoFactory.GetDetailDao().FindAll().Where(detail => detail.Car == car).ToList();
+        }
+        public List<Detail> FindDetailsByType(Type detailType)
+        {
+            List<Detail> details = GetAllDetails();
+            return details.Where(detail => detail.GetType() == detailType).ToList();
         }
     }
 }

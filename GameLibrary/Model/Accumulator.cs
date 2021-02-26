@@ -1,21 +1,21 @@
 ﻿using GameLibrary.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary
 {
-    class Accumulator : Detail
+    public class Accumulator : Detail
     {
         public int Capacity { get; set; }
-        public Accumulator(int capacity, double stabilityInOperation, double purchaseCost, double repairCost) :
-            base(stabilityInOperation, purchaseCost, repairCost)
+        public Accumulator(int capacity, double stability, double purchaseCost, double repairCost, double coeffDecrStability) :
+            base(stability, purchaseCost, repairCost, coeffDecrStability)
         {
             Capacity = capacity;
             IsBroken = false;
             CanBeRepaired = true; 
+        }
+        public override string ToString()
+        {
+            return "Capacity: " + Capacity + ", Stability: " + Stability + ", PurchaseCost: " + PurchaseCost +
+                ", RepairCost: " + RepairCost;
         }
     }
 }

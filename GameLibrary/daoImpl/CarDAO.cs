@@ -1,45 +1,47 @@
 ﻿using GameLibrary.dao;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary.daoImpl
 {
-    class CarDAO : AbstractDAO<Car>, ICarDAO
+    public class CarDAO : AbstractDAO<Car>, ICarDAO
     {
         public CarDAO(Database database) : base(database.Cars, database) { }
 
-        public double CreateCar(int speed, Engine engine, Accumulator accumulator, Disks disks, double money)
+        public (double, Car) CreateCar(Engine engine, Accumulator accumulator, Disks disks, 
+            double coeffEarnMoneyPerMetr, double money)
         {
-            Car car = new Car(speed, engine, accumulator, disks);
-            money = money - (engine.PurchaseCost + accumulator.PurchaseCost + disks.PurchaseCost);
-            Insert(car);
+            if (money - (engine.PurchaseCost + accumulator.PurchaseCost + disks.PurchaseCost) >= 0)
+            {
+                Car car = new Car(engine, accumulator, disks, coeffEarnMoneyPerMetr);
+                money = money - (engine.PurchaseCost + accumulator.PurchaseCost + disks.PurchaseCost);
+                Insert(car);
+                //foreach (var prop in car.GetType().GetProperties())
+                //{
+                //    if (prop.PropertyType.BaseType.Name.Contains("Detail"))
+                //    {
+                //        foreach (var prop1 in prop.PropertyType.BaseType.GetType().GetProperties())
+                //        {
+                //            if (prop1.Name == "Type")
+                //            {
+                //                prop.SetValue(prop.PropertyType.BaseType, "V12");
+                //            }
+                //        }
+                //    }
+                //}
+                engine.Car = car;
+                accumulator.Car = car;
+                disks.Car = car;
+                return (money, car);
+            }
+            return (-1, null);
+        }
+        public void IncreaseMileage(Car car)
+        {
+            car.Mileage += 25;
+        }
+        public double RiseMoney(Car car, double distance, double money)
+        {
+            money += distance * car.CoeffMoneyPerKilometer;
             return money;
         }
-        //public void StartMove(Car car)
-        //{
-        //    Stopwatch stopwatch = new Stopwatch();
-        //    stopwatch.Start();
-        //    if (stopwatch.ElapsedMilliseconds / 1000 == 2)
-        //    {
-        //        if (CheckDetails(car))
-        //        {
-        //            StopMove(car, stopwatch); // остановиться
-        //                                      // RepairDetail() need repair
-        //        }
-        //        IncreaseMileage(car, stopwatch);
-        //        StartMove(car);
-        //    }
-        //}
-
-        //public void StopMove()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
     }
 }

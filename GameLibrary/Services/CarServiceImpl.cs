@@ -1,24 +1,15 @@
 ﻿using GameLibrary.daoImpl;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using GameLibrary.Services;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameLibrary.Model;
-using System.Reflection;
 
 namespace GameLibrary.Services
 {
-    class CarServiceImpl : ICarService
+    public class CarServiceImpl : ICarService
     {
         DAOFactory DaoFactory;
-        DetailServiceImpl DetailServiceImpl;
-        public CarServiceImpl(DAOFactory daoFactory, DetailServiceImpl detailServiceImpl)
+        public CarServiceImpl(DAOFactory daoFactory)
         {
             DaoFactory = daoFactory;
-            DetailServiceImpl = detailServiceImpl;
         }
         public List<Car> GetAllCars()
         {
@@ -28,35 +19,18 @@ namespace GameLibrary.Services
         {
             return DaoFactory.GetCarDao().Get(id);
         }
-        public void CreateCar(int speed, Engine engine, Accumulator accumulator, Disks disks, double money)
+        public (double, Car) CreateCar(Engine engine, Accumulator accumulator, Disks disks,
+                              double coeffEarnMoneyPerMetr, double money)
         {
-            DaoFactory.GetCarDao().CreateCar(speed, engine, accumulator, disks, money);
+            return DaoFactory.GetCarDao().CreateCar(engine, accumulator, disks, coeffEarnMoneyPerMetr, money);
         }
-        public void Move(Car car, double money)
+        public void IncreaseMileage(Car car)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            if (stopwatch.ElapsedMilliseconds / 1000 == 1)
-            {
-                stopwatch.Stop();
-                double distance = IncreaseMileage(car, stopwatch);
-                RiseMoney(car, distance, money);
-                if (!DetailServiceImpl.CheckDetail(car.Accumulator, money) && !DetailServiceImpl.CheckDetail(car.Engine, money)
-                    && !DetailServiceImpl.CheckDetail(car.Disks, money)) 
-                { 
-                    Move(car, money);
-                }
-            }
+            DaoFactory.GetCarDao().IncreaseMileage(car);
         }
-        public double IncreaseMileage(Car car, Stopwatch stopwatch)
+        public double RiseMoney(Car car, double distance, double money)
         {
-            double distance = car.Speed * 1000 / (60 * 60 * 1000) * stopwatch.ElapsedMilliseconds; // distance that was drived 
-            car.Mileage += distance;
-            return distance;
-        }
-        public void RiseMoney(Car car, double distance, double money)
-        {
-            money += distance * car.CoeffEarnMoneyPerMetr;
+            return DaoFactory.GetCarDao().RiseMoney(car, distance, money);
         }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameLibrary
 {
-    interface IAbstractDAO<T> 
+    public interface IAbstractDAO<T> 
     {
         T Get(Guid id);
         void Insert(T entity);

@@ -1,48 +1,63 @@
 ﻿using GameLibrary.dao;
 using GameLibrary.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace GameLibrary.daoImpl
 {
-    class DetailDAO : AbstractDAO<Detail>, IDetailDAO
+    public class DetailDAO : AbstractDAO<Detail>, IDetailDAO
     {
         public DetailDAO(Database database) : base (database.Details, database) { }
-        public bool CheckDetail(Detail detail, double money)
+        public double CheckDetail(Detail detail, double money)
         {
-            double r = Convert.ToDouble(new Random().Next(1));
-            if (r > detail.StabilityInOperation)
+            double r = new Random().NextDouble();
+            if (r > detail.Stability)
             {
                 detail.IsBroken = true;
-                Update(detail.Id, detail);
-                RepairDetail(detail, money);
+                money = RepairDetail(detail, money);
             }
-            return detail.IsBroken;
+            return money;
         }
 
         public double RepairDetail(Detail detail, double money)
         {
-            if (money >= detail.RepairCost)
+            if (money >= detail.RepairCost && DecrStabilityAfterRepair(detail)) 
             {
-                detail.IsBroken = false; // нужна проверка, деталь еще ремонтируется или нет + нужно уменьшать прочность детали
-                Update(detail.Id, detail);
+                detail.IsBroken = false;
                 money -= detail.RepairCost;
             };
             return money;
         }
-        public void DecrStabilityAfterRepair(Detail detail)
+        public bool DecrStabilityAfterRepair(Detail detail)
         {
-            if (detail.StabilityInOperation - detail.CoeffDecrStability > 0.1) // ремонт разрешен
+            if (detail.Stability - detail.CoeffDecrStability > 0.1) // ремонт разрешен
             {
-                detail.StabilityInOperation -= detail.CoeffDecrStability;
+                detail.Stability = Math.Round(detail.Stability - detail.CoeffDecrStability, 1);
+                return true;
             }
             else
             {
                 detail.CanBeRepaired = false;
+                return false;
             }
+        }
+
+        public double ReplaceDetail(Car car, Detail detail, Detail newdetail, double money)
+        {
+            if (money >= newdetail.PurchaseCost)
+            {
+                foreach (PropertyInfo prop in car.GetType().GetProperties())
+                {
+                    if (newdetail.GetType().ToString().Contains(prop.Name))
+                    {
+                        prop.SetValue(car, newdetail);
+                        Database.Details.Remove(detail.Id);
+                    }
+                }
+                money -= newdetail.PurchaseCost;
+                return money;
+            }
+            return -1;   
         }
     }
 }
