@@ -1,4 +1,5 @@
-﻿using GameLibrary.daoImpl;
+﻿using GameLibrary.dao;
+using GameLibrary.daoImpl;
 using System;
 using System.Collections.Generic;
 
@@ -6,8 +7,8 @@ namespace GameLibrary.Services
 {
     public class CarServiceImpl : ICarService
     {
-        DAOFactory DaoFactory;
-        public CarServiceImpl(DAOFactory daoFactory)
+        IDAOFactory DaoFactory;
+        public CarServiceImpl(IDAOFactory daoFactory)
         {
             DaoFactory = daoFactory;
         }

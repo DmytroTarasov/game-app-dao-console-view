@@ -1,4 +1,5 @@
-﻿using GameLibrary.daoImpl;
+﻿using GameLibrary.dao;
+using GameLibrary.daoImpl;
 using GameLibrary.Model;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace GameLibrary.Services
 {
     public class DetailServiceImpl : IDetailService
     {
-        DAOFactory DaoFactory;
+        IDAOFactory DaoFactory;
 
-        public DetailServiceImpl(DAOFactory daoFactory)
+        public DetailServiceImpl(IDAOFactory daoFactory)
         {
             DaoFactory = daoFactory;
         }

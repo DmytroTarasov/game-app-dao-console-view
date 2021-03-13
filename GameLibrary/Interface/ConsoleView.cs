@@ -110,6 +110,8 @@ namespace GameLibrary.Interface
 
             coins = CheckDetailForReplace(car, coins);
 
+            Console.WriteLine(car.ToString());
+
             if (coins >= 0 && Console.ReadKey().Key == ConsoleKey.Enter)
             {
                 return true;

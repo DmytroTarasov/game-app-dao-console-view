@@ -7,11 +7,11 @@ namespace GameLibrary.daoImpl
         public CarDAO(Database database) : base(database.Cars, database) { }
 
         public (double, Car) CreateCar(Engine engine, Accumulator accumulator, Disks disks, 
-            double coeffEarnMoneyPerMetr, double money)
+            double coeffMoneyPerKilometer, double money)
         {
             if (money - (engine.PurchaseCost + accumulator.PurchaseCost + disks.PurchaseCost) >= 0)
             {
-                Car car = new Car(engine, accumulator, disks, coeffEarnMoneyPerMetr);
+                Car car = new Car(engine, accumulator, disks, coeffMoneyPerKilometer);
                 money = money - (engine.PurchaseCost + accumulator.PurchaseCost + disks.PurchaseCost);
                 Insert(car);
                 //foreach (var prop in car.GetType().GetProperties())
